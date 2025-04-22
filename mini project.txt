@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Book Reader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #add8e6; /* Light Blue Background */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+        h2 {
+            color: #333;
+        }
+        select, button {
+            padding: 12px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        button {
+            background: #d8b2f7; /* Light Purple Button */
+            color: white;
+        }
+        button:hover {
+            background: #b685d4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Read Books Online</h2>
+
+        <!-- Genre Selection -->
+        <label for="genreSelector"><b>Select a Genre:</b></label>
+        <select id="genreSelector" onchange="updateBookList()">
+            <option value="">-- Select Genre --</option>
+            <option value="classic">Classic Literature</option>
+            <option value="scifi">Science Fiction & Dystopian</option>
+            <option value="mystery">Mystery & Horror</option>
+            <option value="romance">Romance & Drama</option>
+            <option value="historical">Historical & Adventure</option>
+        </select>
+
+        <br>
+
+        <!-- Book Selection -->
+        <label for="bookSelector"><b>Choose a Book:</b></label>
+        <select id="bookSelector">
+            <option value="">-- Select a Book --</option>
+        </select>
+
+        <br>
+
+        <!-- Read Button -->
+        <button onclick="openBook()">Read Book</button>
+    </div>
+
+    <script>
+        // Book data categorized into 5 genres, each with 5 books
+        const booksByGenre = {
+            classic: {
+                "The Great Gatsby": "https://www.planetebook.com/free-ebooks/the-great-gatsby.pdf",
+                "Pride and Prejudice": "https://www.gutenberg.org/ebooks/1342",
+                "Moby-Dick": "https://www.gutenberg.org/ebooks/2701",
+                "To Kill a Mockingbird": "https://www.planetebook.com/free-ebooks/to-kill-a-mockingbird.pdf",
+                "Jane Eyre": "https://www.gutenberg.org/ebooks/1260"
+            },
+            scifi: {
+                "1984": "https://www.planetebook.com/free-ebooks/1984.pdf",
+                "Brave New World": "https://www.planetebook.com/free-ebooks/brave-new-world.pdf",
+                "Fahrenheit 451": "https://www.planetebook.com/free-ebooks/fahrenheit-451.pdf",
+                "The Time Machine": "https://www.gutenberg.org/ebooks/35",
+                "Dune": "https://www.planetebook.com/free-ebooks/dune.pdf"
+            },
+            mystery: {
+                "Dracula": "https://www.gutenberg.org/ebooks/345",
+                "The Hound of the Baskervilles": "https://www.gutenberg.org/ebooks/2852",
+                "Sherlock Holmes: A Study in Scarlet": "https://www.gutenberg.org/ebooks/244",
+                "The Woman in White": "https://www.gutenberg.org/ebooks/583",
+                "Gone Girl": "https://www.planetebook.com/free-ebooks/gone-girl.pdf"
+            },
+            romance: {
+                "Jane Eyre": "https://www.gutenberg.org/ebooks/1260",
+                "Wuthering Heights": "https://www.gutenberg.org/ebooks/768",
+                "Emma": "https://www.gutenberg.org/ebooks/158",
+                "Romeo and Juliet": "https://www.gutenberg.org/ebooks/1513",
+                "The Notebook": "https://www.planetebook.com/free-ebooks/the-notebook.pdf"
+            },
+            historical: {
+                "War and Peace": "https://www.gutenberg.org/ebooks/2600",
+                "The Odyssey": "https://www.gutenberg.org/ebooks/1727",
+                "Les Misérables": "https://www.gutenberg.org/ebooks/135",
+                "The Count of Monte Cristo": "https://www.gutenberg.org/ebooks/1184",
+                "A Tale of Two Cities": "https://www.gutenberg.org/ebooks/98"
+            }
+        };
+
+        function updateBookList() {
+            let genre = document.getElementById("genreSelector").value;
+            let bookSelector = document.getElementById("bookSelector");
+
+            // Clear previous books
+            bookSelector.innerHTML = '<option value="">-- Select a Book --</option>';
+
+            if (genre && booksByGenre[genre]) {
+                for (let book in booksByGenre[genre]) {
+                    let option = document.createElement("option");
+                    option.value = booksByGenre[genre][book]; // Set URL as value
+                    option.textContent = book;
+                    bookSelector.appendChild(option);
+                }
+            }
+        }
+
+        function openBook() {
+            let bookUrl = document.getElementById("bookSelector").value;
+
+            if (bookUrl) {
+                window.open(bookUrl, "_blank"); // Open book in new tab
+            } else {
+                alert("Please select a book to read.");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
